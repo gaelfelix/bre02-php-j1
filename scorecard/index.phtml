@@ -1,0 +1,91 @@
+<?php
+
+function average(array $numbers) : float
+{
+    $sum = 0;
+    foreach($numbers as $number)
+    {
+        $sum = $sum + $number;
+    }
+    return number_format($sum / count($numbers),2);
+}
+
+function colorAverage($average){
+	$color = "";
+	if ($average < 10) {
+		$color = "red";
+	} else if (10 < $average && $average < 13) {
+		$color = "orange";
+	} else {
+		$color = "green";
+	}
+	return $color;
+}
+
+$students = [
+	[
+		"firstName" => "James",
+		"lastName" => "Fields",
+		"grades" => [12, 11, 15],
+		"average" => -1
+	],
+	[
+		"firstName" => "Richard",
+		"lastName" => "Stein",
+		"grades" => [18, 12, 13],
+		"average" => -1
+	],
+	[
+		"firstName" => "Mark",
+		"lastName" => "Hartoff",
+		"grades" => [9, 11, 10],
+		"average" => -1
+	],
+	[
+		"firstName" => "Thomas",
+		"lastName" => "Nestle",
+		"grades" => [9, 8, 5],
+		"average" => -1
+	],
+	[
+		"firstName" => "Jeremy",
+		"lastName" => "Brent",
+		"grades" => [18, 15, 16],
+		"average" => -1
+	]
+];
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Exercice 3 echo</title>
+		<link rel="stylesheet" href="style.css" type="text/css" />
+	</head>
+	<body>
+<?php foreach($students as $student) { ?>
+        <article>
+            <header>
+                <h1><?= "{$student["firstName"]} {$student["lastName"]}" ?></h1>
+            </header>
+            
+            <section>
+                <h2>Notes:</h2>
+                <ul>
+                    <?php foreach($student["grades"] as $grade) { ?>
+                        <li><?= $grade ?></li>
+                    <?php } ?>
+                </ul>
+            </section>
+        
+            <footer>
+            	<?php $average = average($student["grades"]);
+            	$colorClass = colorAverage($average);
+            	?>
+                <h3>Moyenne des notes de l'étudiant: <span class="<?= $colorClass ?>"><?= $average ; ?></span></h3>
+            </footer>
+        </article>
+    <?php } ?>
+	</body>
+</html>
